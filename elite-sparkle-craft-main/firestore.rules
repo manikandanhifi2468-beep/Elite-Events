@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /inquiries/{inquiry} {
+      // Anyone can submit an inquiry
+      allow create: if true;
+      // Only authenticated admins can read or manage inquiries
+      allow read, update, delete: if request.auth != null;
+    }
+  }
+}
